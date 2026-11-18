@@ -42,7 +42,7 @@ Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
 
 <h2>setup:-</h2>
   
-  <table border="3" align="center">
+  <table border="3">
     
     <tr>
       <th>Clone Repo</th>
