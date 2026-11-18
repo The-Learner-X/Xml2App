@@ -40,9 +40,7 @@ Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
 
 <hr>
 
-<h2>setup</h2>
-
-<p>
+<h2>setup:-</h2>
   
   <table border="3" align="center">
     
@@ -62,7 +60,5 @@ Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
     </tr>
     
   </table>
-
-</p>
 
 <hr>
