@@ -43,22 +43,18 @@ Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
 <h2>setup:-</h2>
   
   <table border="3">
-    
     <tr>
       <th> Clone Repo </th>
       <th> git clone https://github.com/The-Learner-X/Xml2App.git </th>
     </tr>
-    
     <tr>
       <th> Change Directory </th>
       <th> cd Xml2App </th>
     </tr>
-    
     <tr>
       <th> run script </th>
       <th> bash install.sh </th>
     </tr>
-    
   </table>
 
 <hr>
