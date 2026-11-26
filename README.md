@@ -61,3 +61,5 @@ Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
   </table>
 
 <hr>
+
+#bash #java #xml #termux #linux #Mobile-Application's
