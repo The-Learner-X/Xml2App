@@ -11,6 +11,23 @@ C_WARN='\033[1;33m'   # Bold Yellow for warnings
 C_ERR='\033[1;31m'    # Bold Red for errors
 
 p() { echo -e "${C_PATH}$1${C_RESET}"; }
+
+bar() {
+    local cur="$1"
+    local tot="$2"
+    local width=20
+    local pct=$((cur * 100 / tot))
+    local filled=$((cur * width / tot))
+    local empty=$((width - filled))
+    local done_bar=""
+    local rem_bar=""
+
+    for ((i = 0; i < filled; i++)); do done_bar+="#"; done
+    for ((i = 0; i < empty; i++)); do rem_bar+="-"; done
+
+    echo -e "\n${C_INFO}Progress:${C_RESET} ${C_OK}[${done_bar}${C_WARN}${rem_bar}${C_OK}]${C_RESET} ${C_BOLD}${pct}%${C_RESET} ${C_INFO}(${cur}/${tot})${C_RESET}"
+}
+
 step() { echo -e "\n${C_STEP}▶ [$1]${C_RESET} ${C_BOLD}$2${C_RESET}"; }
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -27,17 +44,20 @@ echo -e "${C_INFO}=========================================${C_RESET}"
 step "1/6" "Installing required Termux packages..."
 pkg install -y aapt2 openjdk-17 d8 apksigner zip unzip imagemagick git curl
 echo -e "${C_OK}✔ Dependencies installed successfully.${C_RESET}"
+bar 1 6
 
 # 2. Request storage access for copying SDK files
 step "2/6" "Requesting storage permissions..."
 termux-setup-storage || true
 sleep 2
 echo -e "${C_OK}✔ Storage check complete.${C_RESET}"
+bar 2 6
 
 # 3. Create directory layout structure inside cloned repo
 step "3/6" "Initializing project directories in $(p "$PROJECT_DIR")..."
 mkdir -p res/layout res/values res/mipmap-hdpi src/com/my/app build/gen build/obj
 echo -e "${C_OK}✔ Directories ready at $(p "$PROJECT_DIR/res"), $(p "$PROJECT_DIR/src"), $(p "$PROJECT_DIR/build").${C_RESET}"
+bar 3 6
 
 # 4. Auto-locate or download android.jar and framework-res.apk
 step "4/6" "Checking for Android SDK dependencies..."
@@ -74,6 +94,7 @@ if [ ! -f "framework-res.apk" ]; then
 else
     echo -e "${C_OK}✔ Found existing $(p "$PROJECT_DIR/framework-res.apk").${C_RESET}"
 fi
+bar 4 6
 
 # 5. Generate build.sh
 step "5/6" "Creating $(p "$PROJECT_DIR/build.sh")..."
@@ -92,6 +113,23 @@ C_WARN='\033[1;33m'   # Bold Yellow for warnings
 C_ERR='\033[1;31m'    # Bold Red for errors
 
 p() { echo -e "${C_PATH}$1${C_RESET}"; }
+
+bar() {
+    local cur="$1"
+    local tot="$2"
+    local width=20
+    local pct=$((cur * 100 / tot))
+    local filled=$((cur * width / tot))
+    local empty=$((width - filled))
+    local done_bar=""
+    local rem_bar=""
+
+    for ((i = 0; i < filled; i++)); do done_bar+="#"; done
+    for ((i = 0; i < empty; i++)); do rem_bar+="-"; done
+
+    echo -e "\n${C_INFO}Progress:${C_RESET} ${C_OK}[${done_bar}${C_WARN}${rem_bar}${C_OK}]${C_RESET} ${C_BOLD}${pct}%${C_RESET} ${C_INFO}(${cur}/${tot})${C_RESET}"
+}
+
 step() { echo -e "\n${C_STEP}▶ [$1]${C_RESET} ${C_BOLD}$2${C_RESET}"; }
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -130,6 +168,7 @@ if [ ! -f "framework-res.apk" ] || [ ! -f "android.jar" ]; then
     exit 1
 fi
 echo -e "${C_OK}✔ SDK files verified.${C_RESET}"
+bar 1 10
 
 PACKAGE="com.my.helloapp"
 APP_NAME="Hello App"
@@ -143,11 +182,13 @@ mkdir -p "$PROJECT_DIR/res/mipmap-hdpi"
 mkdir -p "$PROJECT_DIR/build/obj"
 mkdir -p "$PROJECT_DIR/build/gen"
 echo -e "${C_OK}✔ Workspace initialized in $(p "$PROJECT_DIR").${C_RESET}"
+bar 2 10
 
 # Step 2: App Icon
 step "2/9" "Generating app icon at $(p "$PROJECT_DIR/res/mipmap-hdpi/ic_launcher.png")..."
 magick -size 72x72 xc:'#0f172a' -fill '#38bdf8' -gravity center -pointsize 32 -draw "text 0,0 'H'" res/mipmap-hdpi/ic_launcher.png
 echo -e "${C_OK}✔ App icon created.${C_RESET}"
+bar 3 10
 
 # Step 3: Strings
 step "3/9" "Writing string resources to $(p "$PROJECT_DIR/res/values/strings.xml")..."
@@ -158,6 +199,7 @@ cat << 'STRINGS' > res/values/strings.xml
 </resources>
 STRINGS
 echo -e "${C_OK}✔ strings.xml generated.${C_RESET}"
+bar 4 10
 
 # Step 4: AndroidManifest.xml
 step "4/9" "Writing manifest to $(p "$PROJECT_DIR/AndroidManifest.xml")..."
@@ -188,6 +230,7 @@ cat << 'MANIFEST' > AndroidManifest.xml
 </manifest>
 MANIFEST
 echo -e "${C_OK}✔ AndroidManifest.xml generated.${C_RESET}"
+bar 5 10
 
 # Step 5: Java Sources
 step "5/9" "Writing Java activities to $(p "$PROJECT_DIR/src/com/my/helloapp/")..."
@@ -267,6 +310,7 @@ public class MainActivity extends Activity {
 }
 MAIN
 echo -e "${C_OK}✔ SplashActivity.java & MainActivity.java written.${C_RESET}"
+bar 6 10
 
 # Step 6: Compile & Link Resources + Java -> DEX
 step "6/9" "Compiling resources, Java classes & DEX bytecode..."
@@ -286,6 +330,7 @@ fi
 d8 --output build/ --classpath android.jar $JAVA_LIB_OPT $(find build/obj -name "*.class")
 cd build && zip -uj unaligned.apk classes.dex >/dev/null && cd ..
 echo -e "${C_OK}✔ Compiled resources ($(p 'build/resources.zip')) and injected $(p 'build/classes.dex').${C_RESET}"
+bar 7 10
 
 # Step 7: Align APK
 step "7/9" "Aligning APK package..."
@@ -296,6 +341,7 @@ else
     cp build/unaligned.apk build/aligned.apk
     echo -e "${C_WARN}⚠️ zipalign not found; copied $(p 'build/unaligned.apk') -> $(p 'build/aligned.apk').${C_RESET}"
 fi
+bar 8 10
 
 # Step 8: Sign APK
 step "8/9" "Signing APK with keystore..."
@@ -306,6 +352,7 @@ fi
 
 apksigner sign --ks build/key.jks --ks-pass pass:123456 --min-sdk-version 21 --out HelloApp.apk build/aligned.apk
 echo -e "${C_OK}✔ Signed APK at $(p "$PROJECT_DIR/HelloApp.apk").${C_RESET}"
+bar 9 10
 
 # Step 9: Export APK
 step "9/9" "Exporting APK to storage..."
@@ -315,14 +362,17 @@ if [ -d "/sdcard/Download" ]; then
 else
     echo -e "\n${C_OK}=== SUCCESS!${C_RESET} $(p "$PROJECT_DIR/HelloApp.apk") ${C_OK}built ===${C_RESET}"
 fi
+bar 10 10
 BUILD_EOF
 
 echo -e "${C_OK}✔ Created $(p "$PROJECT_DIR/build.sh").${C_RESET}"
+bar 5 6
 
 # 6. Set executable permissions
 step "6/6" "Setting executable permissions..."
 chmod +x "$PROJECT_DIR/build.sh"
 echo -e "${C_OK}✔ Made $(p "$PROJECT_DIR/build.sh") executable.${C_RESET}"
+bar 6 6
 
 echo -e "\n${C_INFO}=========================================${C_RESET}"
 echo -e " ${C_OK}Tool install succesfully now run \"./build.sh\" to compile app${C_RESET}"
