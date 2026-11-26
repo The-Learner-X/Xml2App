@@ -19,9 +19,9 @@ Create your own native Android apps using Terminal + Android + Any AI — zero A
 <p align="center">
 <img src="tip.jpg" alt="instruction to use commands for compiling app and interactive mode." width="80%" height="50%" />
 
-<img src="intractive-mode.jpg" alt="Command to use Interactive mode" width="60%" height="30%" />
+<img src="intractive-mode.jpg" alt="Command to use Interactive mode" width="80%" height="50%" />
 
-<img src="apk-compiled.jpg" alt="Command to use creating full APK." width="60%" height="30%" />
+<img src="apk-compiled.jpg" alt="Command to use creating full APK." width="80%" height="50%" />
 
 </p>
 
