@@ -62,4 +62,22 @@ Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
 
 <hr>
 
+<h2>Commands to remmember:-</h2>
+
+<table>
+  <tr>
+    <th>CMd</th>
+    <th>To use</th>
+  </tr>
+  <tr>
+    <th>./build.sh</th>
+    <th>For Compiling full APK.</th>
+  </tr>
+  <tr>
+    <th>xml2app</th>
+    <th>To enter in interactive mode</th>
+
+  </tr>
+</table>
+
 #bash #java #xml #termux #linux #Mobile-Application's
