@@ -14,7 +14,7 @@ Create your own native Android apps using Terminal + Android + Any AI — zero A
 
 <hr>
 
-<h2> 📸 Preview & Demo </h2>
+<h2> 📸 Preview & </h2>
 
 <p align="center">
 <img src="tip.jpg" alt="instruction to use commands for compiling app and interactive mode." width="80%" height="50%" border-radius="25px"/>
