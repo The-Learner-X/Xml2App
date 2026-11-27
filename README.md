@@ -14,7 +14,7 @@ Create your own native Android apps using Terminal + Android + Any AI — zero A
 
 <hr>
 
-<h2> 📸 Preview & </h2>
+<h2> 📸 Preview:- </h2>
 
 <p align="center">
 <img src="tip.jpg" alt="instruction to use commands for compiling app and interactive mode." width="80%" height="50%" border-radius="25px"/>
@@ -27,7 +27,7 @@ Create your own native Android apps using Terminal + Android + Any AI — zero A
 
 <hr>
 
-<h2> 🤖 Using Xml2App with Any AI </h2>
+<h2> 🤖 Using Xml2App with Any AI:- </h2>
 Xml2App is designed as an <mark> AI-native app builder workflow </mark> :
 <h3> 1. Describe Your App: </h3> Prompt any AI ( <mark> <i> Gemini </i> </mark> , <mark> <i> ChatGPT </i> </mark> , <mark> <i> Claude </i> </mark> , etc.) to generate a single-script `build.sh` containing your ` <u><strong>AndroidManifest.xml</strong></u>`, <u><strong>XML layouts/resources</strong></u>, and Java `<u><strong>Activity</strong></u>` classes.
 <h3> 2. Paste & Execute: </h3> Paste the generated script directly into your ` <mark> ~/Xml2App </mark> ` directory in Termux.
